@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete Account – Psych Life</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f1117;
+      --surface: #191c26;
+      --border: #2a2d3a;
+      --accent: #7c6af7;
+      --accent-soft: rgba(124, 106, 247, 0.12);
+      --text: #e8e8f0;
+      --muted: #8b8fa8;
+      --danger: #e05c6e;
+      --danger-soft: rgba(224, 92, 110, 0.1);
+      --radius: 14px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 80px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .logo-mark {
+      width: 56px;
+      height: 56px;
+      background: var(--accent-soft);
+      border: 1.5px solid var(--accent);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 26px;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(26px, 5vw, 36px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .warning-box {
+      background: var(--danger-soft);
+      border: 1px solid rgba(224, 92, 110, 0.3);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 28px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .warning-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .warning-text {
+      font-size: 13.5px;
+      color: #f0a0aa;
+      line-height: 1.5;
+    }
+
+    .warning-text strong {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--danger);
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14.5px;
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 20px;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    select option {
+      background: var(--surface);
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    .what-gets-deleted {
+      margin-bottom: 24px;
+    }
+
+    .what-gets-deleted h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .delete-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      color: #c0c4d8;
+      margin-bottom: 8px;
+    }
+
+    .delete-item::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--danger);
+      flex-shrink: 0;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--danger);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      margin-top: 4px;
+    }
+
+    .btn-submit:hover { opacity: 0.88; }
+    .btn-submit:active { transform: scale(0.98); }
+
+    .note {
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 48px;
+      text-align: center;
+      font-size: 12px;
+      color: #555870;
+    }
+
+    /* Success state */
+    .success-box {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .success-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .success-box h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .success-box p {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-mark">🧠</div>
+    <h1>Delete Your Account</h1>
+    <p class="subtitle">Psych Life · Data Deletion Request</p>
+  </header>
+
+  <div class="card">
+
+    <!-- Form view -->
+    <div id="form-view">
+
+      <div class="warning-box">
+        <div class="warning-icon">⚠️</div>
+        <div class="warning-text">
+          <strong>This action is permanent</strong>
+          Once submitted, your account and all associated data will be permanently deleted and cannot be recovered.
+        </div>
+      </div>
+
+      <div class="what-gets-deleted">
+        <h3>What will be deleted</h3>
+        <div class="delete-item">Your username and login credentials</div>
+        <div class="delete-item">Your profile and account settings</div>
+        <div class="delete-item">All app data associated with your account</div>
+      </div>
+
+      <hr class="divider" />
+
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Your Psych Life username" />
+
+      <label for="email">Your e-mail address</label>
+      <input type="email" id="email" placeholder="email@example.com" />
+
+      <label for="reason">Reason (optional)</label>
+      <select id="reason">
+        <option value="">Select a reason…</option>
+        <option value="no_longer_using">I no longer use the app</option>
+        <option value="privacy">Privacy concerns</option>
+        <option value="found_alternative">Found an alternative</option>
+        <option value="technical">Technical issues</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="note">Additional note (optional)</label>
+      <textarea id="note" placeholder="Anything else you'd like us to know…"></textarea>
+
+      <button class="btn-submit" onclick="submitRequest()">Submit Deletion Request</button>
+
+      <p class="note">
+        We will process your request within <strong>30 days</strong> and send a confirmation to your e-mail address.
+      </p>
+    </div>
+
+    <!-- Success view -->
+    <div class="success-box" id="success-view">
+      <div class="success-icon">✅</div>
+      <h2>Request Received</h2>
+      <p>We've sent a confirmation to your e-mail. Your account will be deleted within 30 days.</p>
+    </div>
+
+  </div>
+
+  <footer>© 2024 Psych Life · <a href="mailto:creactivewebstudio@gmail.com" style="color:#555870;text-decoration:none;">creactivewebstudio@gmail.com</a></footer>
+
+  <script>
+    function submitRequest() {
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (!username) {
+        alert('Please enter your username.');
+        return;
+      }
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid e-mail address.');
+        return;
+      }
+
+      const reason = document.getElementById('reason').value;
+      const note = document.getElementById('note').value.trim();
+
+      const subject = encodeURIComponent('Account Deletion Request – Psych Life');
+      const body = encodeURIComponent(
+        `Account Deletion Request\n` +
+        `========================\n\n` +
+        `Username: ${username}\n` +
+        `E-mail: ${email}\n` +
+        `Reason: ${reason || 'Not specified'}\n` +
+        `Note: ${note || 'None'}\n\n` +
+        `Submitted: ${new Date().toUTCString()}`
+      );
+
+      window.location.href = `mailto:creactivewebstudio@gmail.com?subject=${subject}&body=${body}`;
+
+      // Show success state after short delay
+      setTimeout(() => {
+        document.getElementById('form-view').style.display = 'none';
+        document.getElementById('success-view').style.display = 'block';
+      }, 800);
+    }
+  </script>
+
+</body>
+</html>
